@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const passport = require('passport');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -12,9 +13,13 @@ mongoose.connect('mongodb://localhost:27017/filmopediadb', {
 });
 mongoose.set('useFindAndModify', false);
 
+require('./passport');
+
 const app = express();
 
 app.use(express.json());
+
+let auth = require('./auth.js')(app);
 
 // HTML Requests
 app.use(morgan('common'));
@@ -27,7 +32,7 @@ app.get('/', (req, res) => {
 });
 
 // Return a list of all movies to the user
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
