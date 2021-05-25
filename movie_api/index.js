@@ -44,7 +44,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
 });
 
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
-app.get('/movies/:title', (req, res) => {
+app.get('/movies/:title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({
       title: req.params.title
     })
@@ -58,7 +58,7 @@ app.get('/movies/:title', (req, res) => {
 });
 
 // Return data about a genre
-app.get('/movies/genres/:name', (req, res) => {
+app.get('/movies/genres/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({
       'genre.name': req.params.name
     })
@@ -72,7 +72,7 @@ app.get('/movies/genres/:name', (req, res) => {
 });
 
 // Return data about a director by name
-app.get('/movies/director/:name', (req, res) => {
+app.get('/movies/director/:name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({
       'director.name': req.params.name
     })
@@ -113,7 +113,7 @@ app.post('/users', (req, res) => {
 });
 
 // Allow users to update their username
-app.put('/users/:username', (req, res) => {
+app.put('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({
       username: req.params.username
     }, {
@@ -137,7 +137,7 @@ app.put('/users/:username', (req, res) => {
 });
 
 // Get information on one user
-app.get('/users/:username', (req, res) => {
+app.get('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({
       username: req.params.username
     })
@@ -151,7 +151,7 @@ app.get('/users/:username', (req, res) => {
 });
 
 // Allow users to add a movie to their list of favorites
-app.post('/users/:username/:favoritemovies', (req, res) => {
+app.post('/users/:username/:favoritemovies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({
       username: req.params.username
     }, {
@@ -172,7 +172,7 @@ app.post('/users/:username/:favoritemovies', (req, res) => {
 });
 
 // Allow users to remove a movie from their list of favorites
-app.delete('/users/:username/:favoritemovies', (req, res) => {
+app.delete('/users/:username/:favoritemovies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndRemove({ favoritemovies: req.params.favoritemovies })
   .then((favMov) => {
     if (!favMov) {
@@ -188,7 +188,7 @@ app.delete('/users/:username/:favoritemovies', (req, res) => {
 });
 
 // Allow users to deregister
-app.delete('/users/:username', (req, res) => {
+app.delete('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndRemove({ username: req.params.username })
     .then((user) => {
       if (!user) {
