@@ -103,7 +103,7 @@
                     <td>/movies</td>
                     <td>GET</td>
                     <td>None</td>
-                    <td>JSON object containing data about all movies</td>
+                    <td>A JSON object containing data about all movies</td>
                 </tr>
                 <tr>
                     <td>Get a movie by title</td>
@@ -114,21 +114,14 @@
                 </tr>
                 <tr>
                     <td>Get info about a genre</td>
-                    <td>/movies/:genre</td>
+                    <td>/movies/genre/:name</td>
                     <td>GET</td>
                     <td>None</td>
                     <td>A JSON object contain data about a genre</td>
                 </tr>
                 <tr>
-                    <td>Get a list of directors</td>
-                    <td>/directors</td>
-                    <td>GET</td>
-                    <td>None</td>
-                    <td>JSON object containing all the directors</td>
-                </tr>
-                <tr>
-                    <td>Get a director by name</td>
-                    <td>/directors/:name</td>
+                    <td>Get information about a movies director</td>
+                    <td>movies/director/:name</td>
                     <td>GET</td>
                     <td>None</td>
                     <td>A JSON object containing data about the director (name, bio, birthyear and death year)</td>
@@ -148,22 +141,22 @@
                     <td>A text message indicating user was successfully removed</td>
                 </tr>
                 <tr>
-                    <td>Update the username of an existing user</td>
+                    <td>Update the data (username, password, birthday) of an existing user</td>
                     <td>/users/:username</td>
                     <td>PUT</td>
-                    <td>None</td>
-                    <td>A text message indicating that the username was updated successfully</td>
+                    <td>A JSON object containing the data that should be updated</td>
+                    <td>A JSON object containing all the data about the updated user info</td>
                 </tr>
                 <tr>
                     <td>Add movie to the list of favorites</td>
-                    <td>/users/:username/favoritemovies</td>
+                    <td>/users/:username/movieID</td>
                     <td>POST</td>
-                    <td>A JSON Object holding data about the movie to add to the list of favorites</td>
-                    <td>A text message that the movie was added to the list of favorites</td>
+                    <td>None</td>
+                    <td>A JSON object containing all the data about the user including the updated favoritemovies</td>
                 </tr>
                 <tr>
                     <td>Remove movie from the favorite list</td>
-                    <td>/users/:username/favoritemovies/:movie</td>
+                    <td>/users/:username/favoritemovies/:movieID</td>
                     <td>DELETE</td>
                     <td>None</td>
                     <td>A text message indicating that a movie was successfully removed</td>
