@@ -3,6 +3,8 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const passport = require('passport');
+const cors = require('cors');
+const { check, validationResult } = require('express-validator');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -19,7 +21,21 @@ const app = express();
 
 app.use(express.json());
 
+
 let auth = require('./auth.js')(app);
+
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com']
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback (null, true);
+    if (allowedOrigins.indexOf(origin) === -1){
+      let message = "The CORS policy for this application doesn't allow access from origin " + origin;
+      return callback(new Error(message ), false);
+    }
+    return callback (null, true);
+  }
+}));
 
 // HTML Requests
 app.use(morgan('common'));
@@ -86,7 +102,17 @@ app.get('/movies/director/:name', passport.authenticate('jwt', { session: false 
 });
 
 // Allow new users to register
-app.post('/users', (req, res) => {
+app.post('/users',[check('username','Username is required').inLength({min:5}), 
+check('username','Username contains non-alphanumeric characters - not allowed.').isAlphanumeric(),
+check('password', 'Password is required').not().isEmpty(),
+check('email','E-Mail does not appear to be valid.').isEmail() ], (req, res) => {
+  let errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(422).json(
+      {errors:errors.array()}
+    );
+  }
+  let hashedPassword = Users.hashPassword(req.body.password);
   Users.findOne({ username: req.body.username })
     .then((user) => {
       if (user) {
@@ -95,7 +121,7 @@ app.post('/users', (req, res) => {
         Users
           .create({
             username: req.body.username,
-            password: req.body.password,
+            password: hashedPassword,
             email: req.body.email,
             birthday: req.body.birthday
           })
@@ -204,6 +230,7 @@ app.delete('/users/:username', passport.authenticate('jwt', { session: false }),
 });
 
 // Port
-app.listen(8080, () => {
-  console.log('Your app is listening at port 8080.');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
 });
