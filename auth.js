@@ -23,8 +23,7 @@ module.exports = (router) => {
                 if (error) {
                     res.send(error);
                 }
-                //let token = generateJWTToken(user.toJSON());
-                const token = jwt.sign(user, 'your_jwt_secret');
+                let token = generateJWTToken(user.toJSON());
                 return res.json({user, token});
             });
         })(req,res);
