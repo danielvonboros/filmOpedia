@@ -20,11 +20,11 @@ require('./passport');
 const app = express();
 
 app.use(express.json());
-app.use(bodyParser.json());
+
 
 let auth = require('./auth.js')(app);
 
-let allowedOrigins;
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com']
 
 app.use(cors({
   origin: (origin, callback) => {
