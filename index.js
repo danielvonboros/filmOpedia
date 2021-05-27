@@ -40,7 +40,7 @@ app.use(cors({
 // HTML Requests
 app.use(morgan('common'));
 
-// redirect to static folder ('public')
+// redirect to static folder ('public') 
 app.use('/', express.static('public'));
 
 app.get('/', (req, res) => {
