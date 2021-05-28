@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser')
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
@@ -9,33 +10,34 @@ const { check, validationResult } = require('express-validator');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect( process.env.CONNECTION_URI, {
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 });
-mongoose.set('useFindAndModify', false);
 
 require('./passport');
+app.use(cors());
 
 const app = express();
 
 app.use(express.json());
-
+app.use(bodyParser.json());
 
 let auth = require('./auth.js')(app);
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com']
+let allowedOrigins = ['http://localhost:8080', '']
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback (null, true);
-    if (allowedOrigins.indexOf(origin) === -1){
-      let message = "The CORS policy for this application doesn't allow access from origin " + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback (null, true);
-  }
-}));
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (!origin) return callback (null, true);
+//     if (allowedOrigins.indexOf(origin) === -1){
+//       let message = "The CORS policy for this application doesn't allow access from origin " + origin;
+//       return callback(new Error(message ), false);
+//     }
+//     return callback (null, true);
+//   }
+// }));
 
 // HTML Requests
 app.use(morgan('common'));
