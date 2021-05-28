@@ -1,32 +1,22 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
+const express = require("express");
+const bodyParser = require("body-parser");
+const app = express();
+const mongoose = require("mongoose");
 const Models = require('./models.js');
+const Movies = Models.Movie;
+const Users = Models.User;
 const passport = require('passport');
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
-
-const Movies = Models.Movie;
-const Users = Models.User;
-
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false
-});
-
+app.use(bodyParser.json());
 require('./passport');
 app.use(cors());
 
-const app = express();
-
-app.use(express.json());
-app.use(bodyParser.json());
-
-let auth = require('./auth.js')(app);
-
-let allowedOrigins = ['http://localhost:8080', '']
+let auth = require('./auth')(app);
+mongoose.connect(process.env.CONNECTION_URI), { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
+app.get("/" , (request , response)=> {
+    response.send("welcome to the filmopedia API. For additional information on requests, navigate to '/documentation'");
+  });
 
 // app.use(cors({
 //   origin: (origin, callback) => {
