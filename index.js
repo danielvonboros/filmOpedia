@@ -35,9 +35,6 @@ app.use(morgan('common'));
 // redirect to static folder ('public') 
 app.use('/', express.static('public'));
 
-app.get('/', (req, res) => {
-  res.send('Welcome to my movie database "filmOpedia"');
-});
 
 // Return a list of all movies to the user
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
