@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose, { Schema as _Schema, model } from 'mongoose';
 const {Schema} = mongoose;
-const bcrypt = require('bcrypt');
+import { hashSync, compareSync } from 'bcrypt';
 
-let movieSchema = mongoose.Schema({
+let movieSchema = _Schema({
   title: {type: String, required: true},
   description: {type: String, required: true},
   genre: {
@@ -18,25 +18,27 @@ let movieSchema = mongoose.Schema({
   featured: Boolean
 });
 
-let userSchema = mongoose.Schema({
+let userSchema = _Schema({
   username: {type: String, required: true},
   password: {type: String, required: true},
   email: {type: String, required: true},
   birthday: Date,
-  favoritemovies: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
+  favoritemovies: [{type: _Schema.Types.ObjectId, ref: 'Movie'}]
 });
 
 userSchema.statics.hashPassword = (password) => {
-  return bcrypt.hashSync(password, 10);
+  return hashSync(password, 10);
 };
 
 userSchema.methods.validatePassword = function(password) {
   console.log(password);
-  return bcrypt.compareSync(password, this.Password);
+  return compareSync(password, this.Password);
 };
 
-let Movie = mongoose.model('Movie', movieSchema);
-let User = mongoose.model('User', userSchema);
+let Movie = model('Movie', movieSchema);
+let User = model('User', userSchema);
 
-module.exports.Movie = Movie;
-module.exports.User = User;
+const _Movie = Movie;
+export { _Movie as Movie };
+const _User = User;
+export { _User as User };
