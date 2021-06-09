@@ -1,6 +1,5 @@
 const express = require("express");
 const morgan = require('morgan');
-const bodyParser = require("body-parser");
 const app = express();
 const mongoose = require("mongoose");
 const Models = require('./models.js');
@@ -9,7 +8,7 @@ const Users = Models.User;
 const passport = require('passport');
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
-app.use(bodyParser.json());
+app.use(express.json());
 require('./passport');
 app.use(cors());
 
@@ -19,16 +18,18 @@ app.get("/" , (request , response)=> {
     response.send("welcome to the filmopedia API. For additional information on requests, navigate to '/documentation'");
   });
 
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     if (!origin) return callback (null, true);
-//     if (allowedOrigins.indexOf(origin) === -1){
-//       let message = "The CORS policy for this application doesn't allow access from origin " + origin;
-//       return callback(new Error(message ), false);
-//     }
-//     return callback (null, true);
-//   }
-// }));
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback (null, true);
+    if (allowedOrigins.indexOf(origin) === -1){
+      let message = "The CORS policy for this application doesn't allow access from origin " + origin;
+      return callback(new Error(message ), false);
+    }
+    return callback (null, true);
+  }
+}));
 
 // HTML Requests
 app.use(morgan('common'));
