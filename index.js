@@ -18,7 +18,7 @@ app.get("/" , (request , response)=> {
     response.send("welcome to the filmopedia API. For additional information on requests, navigate to '/documentation'");
   });
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234'];
+let allowedOrigins = ['http://localhost:8080', 'https://localhost:8080', 'http://testsite.com', 'http://localhost:1234', 'https://localhost:1234'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -39,7 +39,7 @@ app.use('/', express.static('public'));
 
 
 // Return a list of all movies to the user
-app.get('/movies', function (req, res) {
+app.get('/movies', passport.authenticate('jwt', { session: false }), function (req, res) {
   Movies.find()
     .then(function (movies) {
       res.status(201).json(movies);
