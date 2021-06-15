@@ -153,6 +153,18 @@ app.put('/users/:username', passport.authenticate('jwt', { session: false }), (r
     });
 });
 
+// Get all users
+app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
 // Get information on one user
 app.get('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOne({
