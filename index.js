@@ -299,23 +299,26 @@ app.post(
 
 // Allow users to remove a movie from their list of favorites
 app.delete(
-  "/users/:username/:favoritemovies",
+  "/users/:username/favourites/:movieId",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Users.findOneAndRemove({
-      favoritemovies: req.params.username.favoritemovies,
-    })
-      .then((favMov) => {
-        if (!favMov) {
-          res.status(400).send(req.params.favoritemovies + " was not found");
+    Users.findOneAndUpdate(
+      { Username: req.params.username },
+      {
+        $pull: { FavoriteMovies: req.params.movieId },
+      },
+      { new: true },
+      (err, updatedUser) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Error: " + err);
         } else {
-          res.status(200).send(req.params.favoritemovies + " was deleted.");
+          res
+            .status(200)
+            .json({ message: `${req.params.movieId} was deleted` });
         }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
+      }
+    );
   }
 );
 
