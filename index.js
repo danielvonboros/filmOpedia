@@ -86,7 +86,7 @@ app.get(
 
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
 app.get(
-  "/movies/:id",
+  "/movies/id/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Movies.findOne({
