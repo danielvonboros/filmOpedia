@@ -302,7 +302,9 @@ app.delete(
   "/users/:username/:favoritemovies",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Users.findOneAndRemove({ favoritemovies: req.params.favoritemovies })
+    Users.findOneAndRemove({
+      favoritemovies: req.params.username.favoritemovies,
+    })
       .then((favMov) => {
         if (!favMov) {
           res.status(400).send(req.params.favoritemovies + " was not found");
