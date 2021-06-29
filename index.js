@@ -239,13 +239,14 @@ app.get(
   (req, res) => {
     Users.findOne({
       username: req.params.username,
-    });
-    then((user) => {
-      res.json(user.favoritemovies);
-    }).catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
+    })
+      .then((user) => {
+        res.json(user.favoritemovies);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
   }
 );
 
