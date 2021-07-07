@@ -30,6 +30,8 @@ let allowedOrigins = [
   "http://testsite.com",
   "http://localhost:1234",
   "https://localhost:1234",
+  "http://filmopedia-client.netlify.app",
+  "https://filmopedia-client.netlify.app",
 ];
 
 app.use(
