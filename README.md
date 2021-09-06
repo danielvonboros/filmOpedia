@@ -1,9 +1,9 @@
 ![alt filmOpediaApiLogo](https://github.com/danielvonboros/filmopedia/blob/main/public/filmopediaApiLogo.png?raw=true)
 Not just another internet movie database
 
-API Backend for filmOpedia React and filmOpedia Angular
-This movie API can be used to access a list of movie details,
-like:
+<p>API Backend for <a href="https://github.com/danielvonboros/filmOpedia-client">filmOpedia React</a> and <a href="https://github.com/danielvonboros/filmopedia-angular-client">filmOpedia Angular</a></p>
+<p>This movie API can be used to access a list of movie details,
+like:</p>
 
 <ul>
 <li>Movie Title</li>
@@ -58,11 +58,9 @@ user collection contains data about user, password birthday and favorite movies
 <li>Allow users to add a movie to their list of favorites</li>
 <li>Allow users to remove a movie from their list of favorites</li>
 <li>Allow existing users to deregister</li>
-<li></li>
-<li>More functions could possibly follow... </li>
 </ul>
 
-### This project will be built with the following tools
+### This project is built with the following tools
 
 <ul>
           <li>The API is a Node.js and Express application</li>
