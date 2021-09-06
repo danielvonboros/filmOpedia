@@ -49,21 +49,22 @@ user collection contains data about user, password birthday and favorite movies
 ### User Stories
 
 <ul>
-         <li>Return a list of ALL movies to the user</li>
-         <li>Return data (description, genre, director, image URL, whether it’s featured or not) about a
-   single movie by title to the user</li>
-         <li>Return data about a genre (description) by name/title (e.g., “Thriller”)</li>
-         <li>Return data about a director (bio, birth year, death year) by name</li>
-         <li>Allow new users to register</li>
-         <li>Allow users to update their user info (username, password, email, date of birth)</li>
-         <li>Allow users to add a movie to their list of favorites</li>
-         <li>Allow users to remove a movie from their list of favorites</li>
-         <li>Allow existing users to deregister</li>
-         <li></li>
-         <li>More functions could possibly follow... </li>
-     </ul>
-     <h1>This project will be built with the following tools</h1>
-        <ul>
+<li>Return a list of ALL movies to the user</li>
+<li>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</li>
+<li>Return data about a genre (description) by name/title (e.g., “Thriller”)</li>
+<li>Return data about a director (bio, birth year, death year) by name</li>
+<li>Allow new users to register</li>
+<li>Allow users to update their user info (username, password, email, date of birth)</li>
+<li>Allow users to add a movie to their list of favorites</li>
+<li>Allow users to remove a movie from their list of favorites</li>
+<li>Allow existing users to deregister</li>
+<li></li>
+<li>More functions could possibly follow... </li>
+</ul>
+
+### This project will be built with the following tools
+
+<ul>
           <li>The API is a Node.js and Express application</li>
           <li>The API uses the REST(ful) architecture</li>
           <li>The API contains of more than 3 middleware modules</li>
@@ -77,7 +78,6 @@ user collection contains data about user, password birthday and favorite movies
           <li>The API source code is deployed to a publicly accessible platform</li>
           <li>The API is deployed with Heroku</li>
         </ul>
-    </div>
 
 ### API endpoints table
 
