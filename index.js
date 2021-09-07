@@ -31,7 +31,7 @@ let allowedOrigins = [
   "http://localhost:1234",
   "https://localhost:1234",
   "http://localhost:4200",
-  "http://localhost:4200/"
+  "http://localhost:4200/",
   "https://localhost:4200",
   "http://filmopedia-client.netlify.app",
   "https://filmopedia-client.netlify.app",
