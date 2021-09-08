@@ -1,5 +1,7 @@
 ![alt filmOpediaApiLogo](https://github.com/danielvonboros/filmopedia/blob/main/public/filmopediaApiLogo.png?raw=true)
-Not just another internet movie database
+
+<p>Not just another internet movie database</p>
+<hr>
 
 <p>API Backend for <a href="https://github.com/danielvonboros/filmOpedia-client">filmOpedia React</a> and <a href="https://github.com/danielvonboros/filmopedia-angular-client">filmOpedia Angular</a></p>
 <p>This movie API can be used to access a list of movie details,

@@ -283,9 +283,7 @@ app.post(
         username: req.params.username,
       },
       {
-        $push: {
-          favoritemovies: req.params.movieId,
-        },
+        $push: { favoritemovies: req.params.movieId },
       },
       {
         new: true,
