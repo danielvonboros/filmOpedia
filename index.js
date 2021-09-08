@@ -12,9 +12,6 @@ app.use(express.json());
 require("./passport");
 app.use(cors());
 
-//mongodb+srv://filmopediaDBadmin:PbT3KdTtnHDZejmu@filmopediadb.7aohz.mongodb.net/filmopediaDB?retryWrites=true&w=majority
-//process.env.CONNECTION_URI
-
 let auth = require("./auth")(app);
 mongoose.connect(process.env.CONNECTION_URI),
   { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false };
@@ -278,7 +275,7 @@ app.get(
 
 // Allow users to add a movie to their list of favorites
 app.post(
-  "/users/:username/:favoritemovies",
+  "/users/:username/favoritemovies/:movieId",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
@@ -287,7 +284,7 @@ app.post(
       },
       {
         $push: {
-          favoritemovies: req.params.favoritemovies,
+          favoritemovies: req.params.movieId,
         },
       },
       {
