@@ -20,7 +20,9 @@ app.get("/", (request, response) => {
     "welcome to the filmopedia API. For additional information on requests, navigate to '/documentation'"
   );
 });
-
+/**
+ * define allowedOrigins to be allowed by CORS
+ */
 let allowedOrigins = [
   "http://localhost:8080",
   "https://localhost:8080",
@@ -34,6 +36,9 @@ let allowedOrigins = [
   "https://filmopedia-client.netlify.app",
 ];
 
+/**
+ * CORS config
+ */
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -55,7 +60,13 @@ app.use(morgan("common"));
 // redirect to static folder ('public')
 app.use("/", express.static("public"));
 
-// Return a list of all movies to the user
+/**
+ * Get all movies and movie details
+ * @method GET
+ * @param {string} endpoint
+ * @returns {object} containing all movies and movie data
+ * @requires authentication JWT
+ */
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -71,7 +82,13 @@ app.get(
   }
 );
 
-// Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+/**
+ * Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+ * @method GET
+ * @param {title: string} endpoint
+ * @returns {object} data about a single movie
+ * @requires authentication JWT
+ */
 app.get(
   "/movies/:title",
   passport.authenticate("jwt", { session: false }),
@@ -89,7 +106,13 @@ app.get(
   }
 );
 
-// Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+/**
+ * Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+ * @method GET
+ * @param {id: string} endpoint
+ * @returns {object} data about a single movie
+ * @requires authentication JWT
+ */
 app.get(
   "/movies/id/:id",
   passport.authenticate("jwt", { session: false }),
@@ -107,7 +130,13 @@ app.get(
   }
 );
 
-// Return data about a genre
+/**
+ * Return data about a genre
+ * @method GET
+ * @param {name: string} endpoint
+ * @returns {object} data about a genre
+ * @requires authentication JWT
+ */
 app.get(
   "/movies/genres/:name",
   passport.authenticate("jwt", { session: false }),
@@ -125,7 +154,13 @@ app.get(
   }
 );
 
-// Return data about a director by name
+/**
+ * Return data about a director by name
+ * @method GET
+ * @param {name: string} endpoint
+ * @returns {object} data about a director
+ * @requires authenticate JWT
+ */
 app.get(
   "/movies/director/:name",
   passport.authenticate("jwt", { session: false }),
@@ -143,7 +178,14 @@ app.get(
   }
 );
 
-// Allow new users to register
+/**
+ * Allow new users to register
+ * @method POST
+ * @param {object} object containing user details
+ * @returns {object} json-object added user
+ * @requires properties username, password, email
+ * @requires auth no authentication - public
+ */
 app.post(
   "/users",
   [
@@ -188,7 +230,14 @@ app.post(
   }
 );
 
-// Allow users to update their username
+/**
+ * Allow users to update their username
+ * @method PUT
+ * @param {object} object containing user details
+ * @returns {object} json-object added user
+ * @requires properties username, password, email
+ * @requires authentication JWT
+ */
 app.put(
   "/users/:username",
   passport.authenticate("jwt", { session: false }),
@@ -221,7 +270,13 @@ app.put(
   }
 );
 
-// Get all users
+/**
+ * Get all users
+ * @method GET
+ * @param {string} endpoint
+ * @returns {object} containing all users
+ * @requires authentication JWT
+ */
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -237,7 +292,13 @@ app.get(
   }
 );
 
-// Get information on one user
+/**
+ * Get information on one user
+ * @method GET
+ * @param {username: string} endpoint
+ * @returns {object} containing details of one user
+ * @requires authentication JWT
+ */
 app.get(
   "/users/:username",
   passport.authenticate("jwt", { session: false }),
@@ -255,7 +316,13 @@ app.get(
   }
 );
 
-//Get the favoritemovies array of a user
+/**
+ * Get the favoritemovies array of a user
+ * @method GET
+ * @param {username: string} endpoint
+ * @returns {object} containing favoritemovies array of user
+ * @requires authentication JWT
+ */
 app.get(
   "/users/:username/favoritemovies",
   passport.authenticate("jwt", { session: false }),
@@ -273,7 +340,13 @@ app.get(
   }
 );
 
-// Allow users to add a movie to their list of favorites
+/**
+ * Allow users to add a movie to their list of favorites
+ * @method POST
+ * @param {username: string, movieId: string} endpoint
+ * @returns {statusMessage} success/error
+ * @requires authentication JWT
+ */
 app.post(
   "/users/:username/favoritemovies/:movieId",
   passport.authenticate("jwt", { session: false }),
@@ -300,7 +373,13 @@ app.post(
   }
 );
 
-// Allow users to remove a movie from their list of favorites
+/**
+ * Allow users to remove a movie from their list of favorites
+ * @method DELETE
+ * @param {username: string, movieId: string} endpoint
+ * @returns {statusMessage} success/error
+ * @requires authentication JWT
+ */
 app.delete(
   "/users/:username/favoritemovies/:movieId",
   passport.authenticate("jwt", { session: false }),
@@ -325,7 +404,13 @@ app.delete(
   }
 );
 
-// Allow users to deregister
+/**
+ * Allow users to deregister
+ * @method DELETE
+ * @param {username: string} endpoint
+ * @returns {statusMessage} success/error
+ * @requires authentication JWT
+ */
 app.delete(
   "/users/:username",
   passport.authenticate("jwt", { session: false }),
