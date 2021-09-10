@@ -34,6 +34,7 @@ let allowedOrigins = [
   "https://localhost:4200",
   "http://filmopedia-client.netlify.app",
   "https://filmopedia-client.netlify.app",
+  "https://danielvonboros.github.io/filmopedia-angular-client",
 ];
 
 /**
