@@ -368,6 +368,30 @@ app.get(
 );
 
 /**
+ * Get information on one user
+ * @method GET
+ * @param {string} (userId) endpoint
+ * @returns {object} containing details of one user
+ * @requires authentication JWT
+ */
+app.get(
+  "/users/id/:_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Users.findOne({
+      _id: req.params._id,
+    })
+      .then((user) => {
+        res.json(user);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
+
+/**
  * Get the favoritemovies array of a user
  * @method GET
  * @param {string} (username) endpoint
