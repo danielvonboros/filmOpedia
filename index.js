@@ -263,6 +263,10 @@ app.put(
         new: true,
       },
       (err, updatedUser) => {
+        if (!updatedUser) {
+          res.status(404).send("Error: User not Found");
+        }
+
         if (err) {
           console.error(err);
           res.status(500).send("Error: " + err);
@@ -283,7 +287,7 @@ app.put(
  * @requires authentication JWT
  */
 app.put(
-  "/users/:_id",
+  "/users/id/:_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     let hashedPassword = Users.hashPassword(req.body.password);
@@ -303,6 +307,9 @@ app.put(
         new: true,
       },
       (err, updatedUser) => {
+        if (!updatedUser) {
+          res.status(404).send("Error: User not Found");
+        }
         if (err) {
           console.error(err);
           res.status(500).send("Error: " + err);
