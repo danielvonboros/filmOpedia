@@ -275,6 +275,46 @@ app.put(
 );
 
 /**
+ * Allow users to update their username
+ * @method PUT
+ * @param {object} object containing user details
+ * @returns {object} json-object added user
+ * @requires properties id, password, email
+ * @requires authentication JWT
+ */
+app.put(
+  "/users/:_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    let hashedPassword = Users.hashPassword(req.body.password);
+    Users.findOneAndUpdate(
+      {
+        _id: req.params._id,
+      },
+      {
+        $set: {
+          username: req.body.username,
+          password: hashedPassword,
+          email: req.body.email,
+          birthday: req.body.birthday,
+        },
+      },
+      {
+        new: true,
+      },
+      (err, updatedUser) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Error: " + err);
+        } else {
+          res.json(updatedUser);
+        }
+      }
+    );
+  }
+);
+
+/**
  * Get all users
  * @method GET
  * @param {string} endpoint
