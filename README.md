@@ -1,6 +1,6 @@
 ![alt filmOpediaApiLogo](https://github.com/danielvonboros/filmopedia/blob/main/public/filmopediaApiLogo.png?raw=true)
 
-<p>Not just another internet movie database</p>
+<p>Backend to filmopedia Client and filmopedia Angular Client based on nextJS and ExpressJS</p>
 <hr>
 
 <p>API Backend for <a href="https://github.com/danielvonboros/filmOpedia-client">filmOpedia React</a> and <a href="https://github.com/danielvonboros/filmopedia-angular-client">filmOpedia Angular</a></p>
